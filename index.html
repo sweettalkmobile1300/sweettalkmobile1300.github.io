@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SweetTalkMobile — Good Phones. Straight Talk.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1B1F3B;
+    --navy-deep:#12142B;
+    --pink:#FF4FA3;
+    --mint:#B8E986;
+    --cream:#F5EFE6;
+    --cream-dim:#E4DCCE;
+    --ink:#12142B;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--navy);
+    color:var(--cream);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Bricolage Grotesque',sans-serif;
+    letter-spacing:-0.02em;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--mint);
+    outline-offset:3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(27,31,59,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(245,239,230,0.08);
+  }
+  nav .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    height:76px;
+  }
+  .logo{
+    font-size:1.3rem;font-weight:700;
+    display:flex;align-items:center;gap:8px;
+  }
+  .logo .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--pink);
+    box-shadow:0 0 0 4px rgba(255,79,163,0.2);
+  }
+  .navlinks{display:flex;gap:36px;font-size:0.95rem;font-weight:500;}
+  .navlinks a{opacity:0.8;transition:opacity .2s;position:relative;}
+  .navlinks a:hover{opacity:1;}
+  .navlinks a::after{
+    content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;
+    background:var(--mint);transition:width .25s ease;
+  }
+  .navlinks a:hover::after{width:100%;}
+  .navcta{
+    background:var(--pink);color:var(--navy-deep);
+    padding:10px 20px;border-radius:100px;font-weight:600;font-size:0.9rem;
+    white-space:nowrap;
+  }
+  .mobile-hide{display:flex;}
+  @media(max-width:780px){ .navlinks{display:none;} }
+
+  /* SIGNAL TICKER — signature element */
+  .ticker-band{
+    background:var(--navy-deep);
+    border-bottom:1px solid rgba(245,239,230,0.08);
+    overflow:hidden;
+    padding:14px 0;
+  }
+  .ticker-track{
+    display:flex;gap:0;
+    width:max-content;
+    animation:scrollTicker 32s linear infinite;
+  }
+  @keyframes scrollTicker{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  .bubble{
+    display:inline-flex;align-items:center;gap:10px;
+    background:rgba(245,239,230,0.06);
+    border:1px solid rgba(245,239,230,0.1);
+    padding:8px 18px;border-radius:100px;
+    margin-right:14px;font-size:0.85rem;white-space:nowrap;
+  }
+  .bubble .bars{display:inline-flex;align-items:flex-end;gap:2px;height:12px;}
+  .bubble .bars span{width:3px;background:var(--mint);border-radius:1px;}
+  .bubble .bars span:nth-child(1){height:4px;}
+  .bubble .bars span:nth-child(2){height:7px;}
+  .bubble .bars span:nth-child(3){height:10px;}
+  .bubble .bars span:nth-child(4){height:12px;}
+
+  /* HERO */
+  .hero{
+    padding:110px 0 90px;
+    position:relative;
+  }
+  .hero .wrap{
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:60px;align-items:center;
+  }
+  @media(max-width:900px){ .hero .wrap{grid-template-columns:1fr;} }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'IBM Plex Mono',monospace;font-size:0.78rem;
+    color:var(--mint);letter-spacing:0.08em;text-transform:uppercase;
+    margin-bottom:24px;
+  }
+  .eyebrow::before{content:'●';font-size:0.6rem;}
+  .hero h1{
+    font-size:clamp(2.6rem,5.5vw,4.4rem);
+    font-weight:800;line-height:1.02;margin-bottom:24px;
+  }
+  .hero h1 .accent{color:var(--pink);}
+  .hero p.lede{
+    font-size:1.15rem;line-height:1.6;color:var(--cream-dim);
+    max-width:460px;margin-bottom:36px;
+  }
+  .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--pink);color:var(--navy-deep);
+    padding:16px 30px;border-radius:100px;font-weight:700;font-size:0.98rem;
+    display:inline-block;transition:transform .2s ease;
+  }
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-ghost{
+    border:1px solid rgba(245,239,230,0.25);
+    padding:16px 30px;border-radius:100px;font-weight:600;font-size:0.98rem;
+    display:inline-block;transition:border-color .2s ease,background .2s ease;
+  }
+  .btn-ghost:hover{border-color:var(--mint);background:rgba(184,233,134,0.06);}
+
+  /* Hero visual — phone + speech bubble */
+  .hero-visual{position:relative;display:flex;justify-content:center;}
+  .phone-mock{
+    width:220px;height:440px;
+    background:linear-gradient(160deg,#242849,#171a33);
+    border-radius:36px;border:2px solid rgba(245,239,230,0.12);
+    box-shadow:0 40px 80px -20px rgba(0,0,0,0.6);
+    position:relative;padding:14px;
+  }
+  .phone-mock::before{
+    content:'';position:absolute;top:14px;left:50%;transform:translateX(-50%);
+    width:60px;height:6px;border-radius:4px;background:rgba(245,239,230,0.15);
+  }
+  .phone-screen{
+    width:100%;height:100%;border-radius:24px;
+    background:linear-gradient(200deg,var(--pink) -10%, #6C3FA8 50%, var(--navy-deep) 110%);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .speech-pop{
+    position:absolute;top:20px;right:-30px;
+    background:var(--mint);color:var(--navy-deep);
+    padding:12px 18px;border-radius:18px 18px 4px 18px;
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:0.9rem;
+    box-shadow:0 12px 30px -8px rgba(0,0,0,0.5);
+    animation:float 4s ease-in-out infinite;
+  }
+  .speech-pop.two{
+    top:auto;bottom:60px;right:auto;left:-40px;
+    background:var(--cream);color:var(--navy-deep);
+    border-radius:18px 18px 18px 4px;
+    animation-delay:1.5s;
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+  }
+
+  /* SECTION generic */
+  section{padding:100px 0;}
+  .section-head{max-width:640px;margin-bottom:56px;}
+  .section-head .eyebrow{margin-bottom:16px;}
+  .section-head h2{font-size:clamp(1.9rem,3.4vw,2.6rem);font-weight:700;line-height:1.15;}
+  .section-head p{color:var(--cream-dim);margin-top:14px;font-size:1.05rem;line-height:1.6;}
+
+  /* WHAT WE SELL */
+  .sell-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+  }
+  .order-note{
+    display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+    background:rgba(184,233,134,0.06);
+    border:1px solid rgba(184,233,134,0.25);
+    border-radius:16px;padding:20px 26px;margin-bottom:40px;
+  }
+  .order-note-badge{
+    background:var(--mint);color:var(--navy-deep);
+    font-family:'IBM Plex Mono',monospace;font-size:0.72rem;font-weight:600;
+    padding:6px 12px;border-radius:100px;letter-spacing:0.05em;white-space:nowrap;
+  }
+  .order-note p{color:var(--cream-dim);font-size:0.95rem;line-height:1.5;flex:1;min-width:220px;}
+  @media(max-width:900px){ .sell-grid{grid-template-columns:1fr;} }
+  .sell-card{
+    background:rgba(245,239,230,0.04);
+    border:1px solid rgba(245,239,230,0.08);
+    border-radius:20px;padding:32px;
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .sell-card:hover{transform:translateY(-6px);border-color:rgba(184,233,134,0.4);}
+  .sell-card .bars{display:flex;align-items:flex-end;gap:3px;height:18px;margin-bottom:22px;}
+  .sell-card .bars span{width:5px;border-radius:1px;background:rgba(245,239,230,0.15);}
+  .sell-card .bars span.on{background:var(--mint);}
+  .sell-card h3{font-size:1.3rem;margin-bottom:10px;font-weight:700;}
+  .sell-card p{color:var(--cream-dim);font-size:0.95rem;line-height:1.6;}
+  .sell-card .tag{
+    display:inline-block;margin-top:18px;font-family:'IBM Plex Mono',monospace;
+    font-size:0.75rem;color:var(--pink);letter-spacing:0.05em;
+  }
+
+  /* WRITE-UPS */
+  .writeups{background:var(--cream);color:var(--ink);}
+  .writeups .eyebrow{color:#8A5FBF;}
+  .writeups .section-head p{color:#5a5548;}
+  .post-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:28px;
+  }
+  @media(max-width:900px){ .post-grid{grid-template-columns:1fr;} }
+  .post-card{
+    background:#fff;border-radius:18px;overflow:hidden;
+    border:1px solid rgba(18,20,43,0.08);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .post-card:hover{transform:translateY(-6px);box-shadow:0 24px 40px -20px rgba(18,20,43,0.2);}
+  .post-thumb{
+    height:150px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:2.2rem;
+    color:rgba(255,255,255,0.9);
+  }
+  .post-thumb.p1{background:linear-gradient(135deg,var(--pink),#8A5FBF);}
+  .post-thumb.p2{background:linear-gradient(135deg,#3A9188,var(--navy));}
+  .post-thumb.p3{background:linear-gradient(135deg,#E8AC4B,var(--pink));}
+  .post-body{padding:24px;}
+  .post-body .date{font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:#8A5FBF;margin-bottom:10px;display:block;}
+  .post-body h3{font-size:1.1rem;margin-bottom:8px;line-height:1.35;}
+  .post-body p{font-size:0.9rem;color:#5a5548;line-height:1.55;}
+
+  /* COMING SOON */
+  .soon{
+    border-radius:28px;
+    background:linear-gradient(135deg,#241C4A,#3B1F52);
+    border:1px solid rgba(245,239,230,0.1);
+    padding:60px 48px;
+    display:grid;grid-template-columns:1.2fr 0.8fr;gap:40px;align-items:center;
+    position:relative;overflow:hidden;
+  }
+  @media(max-width:900px){ .soon{grid-template-columns:1fr;padding:40px 28px;} }
+  .soon-badge{
+    display:inline-block;background:var(--mint);color:var(--navy-deep);
+    font-family:'IBM Plex Mono',monospace;font-size:0.75rem;font-weight:600;
+    padding:6px 14px;border-radius:100px;margin-bottom:20px;letter-spacing:0.05em;
+  }
+  .soon h3{font-size:1.8rem;margin-bottom:14px;}
+  .soon p{color:var(--cream-dim);line-height:1.6;max-width:460px;}
+  .soon-list{display:flex;flex-direction:column;gap:14px;}
+  .soon-item{
+    display:flex;align-items:center;gap:14px;
+    background:rgba(245,239,230,0.05);
+    border:1px solid rgba(245,239,230,0.08);
+    padding:16px 18px;border-radius:14px;font-size:0.92rem;
+  }
+  .soon-item .ico{
+    width:34px;height:34px;border-radius:10px;background:rgba(184,233,134,0.15);
+    display:flex;align-items:center;justify-content:center;color:var(--mint);font-weight:700;
+    flex-shrink:0;
+  }
+
+  /* ABOUT */
+  .about .wrap{
+    display:grid;grid-template-columns:0.9fr 1.1fr;gap:60px;align-items:center;
+  }
+  @media(max-width:900px){ .about .wrap{grid-template-columns:1fr;} }
+  .about-card{
+    background:rgba(245,239,230,0.04);
+    border:1px solid rgba(245,239,230,0.08);
+    border-radius:24px;padding:40px;
+  }
+  .about-card .initials{
+    width:64px;height:64px;border-radius:18px;
+    background:linear-gradient(135deg,var(--pink),#8A5FBF);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.4rem;
+    margin-bottom:24px;
+  }
+  .about-card p{color:var(--cream-dim);line-height:1.7;font-size:1rem;}
+  .about-card p + p{margin-top:16px;}
+
+  /* CONTACT / FOOTER */
+  footer{
+    background:var(--navy-deep);border-top:1px solid rgba(245,239,230,0.08);
+    padding:70px 0 32px;
+  }
+  .footer-grid{
+    display:grid;grid-template-columns:1.4fr 0.8fr 0.8fr;gap:40px;margin-bottom:60px;
+  }
+  @media(max-width:780px){ .footer-grid{grid-template-columns:1fr;gap:36px;} }
+  .footer-grid h4{font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--mint);margin-bottom:18px;font-family:'IBM Plex Mono',monospace;font-weight:500;}
+  .footer-grid a, .footer-grid p{display:block;color:var(--cream-dim);font-size:0.95rem;margin-bottom:10px;}
+  .footer-grid a:hover{color:var(--pink);}
+  .foot-cta{
+    background:var(--pink);color:var(--navy-deep);
+    padding:12px 24px;border-radius:100px;font-weight:700;font-size:0.9rem;
+    display:inline-block;margin-top:8px;
+  }
+  .foot-bottom{
+    border-top:1px solid rgba(245,239,230,0.08);
+    padding-top:28px;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+    font-size:0.82rem;color:rgba(245,239,230,0.4);
+  }
+
+  /* scroll reveal */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="logo"><span class="dot"></span>SweetTalk<span style="color:var(--pink)">Mobile</span></a>
+    <div class="navlinks mobile-hide">
+      <a href="#shop">Devices</a>
+      <a href="#writeups">Write-ups</a>
+      <a href="#soon">Coming Soon</a>
+      <a href="#about">About</a>
+    </div>
+    <a href="#contact" class="navcta mobile-hide">Get in Touch</a>
+  </div>
+</nav>
+
+<div class="ticker-band" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack">
+    <!-- populated by JS, duplicated for seamless loop -->
+  </div>
+</div>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Now taking orders</div>
+        <h1>Good phones.<br><span class="accent">Straight talk.</span></h1>
+        <p class="lede">SweetTalkMobile sells new and quality pre-owned phones and accessories — honest pricing, real write-ups, no fine print. Order online and we'll bill you directly.</p>
+        <div class="hero-ctas">
+          <a href="#shop" class="btn-primary">Browse Devices</a>
+          <a href="#writeups" class="btn-ghost">Read the Write-ups</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="phone-mock">
+          <div class="phone-screen"></div>
+        </div>
+        <div class="speech-pop">In stock now 📱</div>
+        <div class="speech-pop two">Accessories too</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="shop">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">What we sell</div>
+        <h2>Phones & accessories, sorted honestly</h2>
+        <p>Every listing gets a plain-language condition read before it goes up — no surprises when it lands in your hands.</p>
+      </div>
+      <div class="order-note reveal">
+        <span class="order-note-badge">HOW IT WORKS</span>
+        <p>Order online and we'll bill you directly — no card details needed upfront. Just reach out with what you want and we'll sort out payment together.</p>
+      </div>
+      <div class="sell-grid">
+        <div class="sell-card reveal">
+          <div class="bars"><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
+          <h3>New Devices</h3>
+          <p>Brand-new phones, sealed and unlocked, at prices that don't punish you for wanting the latest.</p>
+          <span class="tag">FULL WARRANTY</span>
+        </div>
+        <div class="sell-card reveal">
+          <div class="bars"><span class="on"></span><span class="on"></span><span></span><span></span></div>
+          <h3>Certified Pre-Owned</h3>
+          <p>Inspected, tested, and graded devices — every listing tells you exactly what condition it's in.</p>
+          <span class="tag">INSPECTED</span>
+        </div>
+        <div class="sell-card reveal">
+          <div class="bars"><span class="on"></span><span></span><span></span><span></span></div>
+          <h3>Accessories</h3>
+          <p>Cases, chargers, screen protection, and the small stuff you always forget until you need it.</p>
+          <span class="tag">IN STOCK</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="writeups" id="writeups">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">From the notebook</div>
+        <h2>Write-ups worth reading before you buy</h2>
+        <p>Straight-talk breakdowns on devices, deals, and what's actually worth your money.</p>
+      </div>
+      <div class="post-grid">
+        <div class="post-card reveal">
+          <div class="post-thumb p1">01</div>
+          <div class="post-body">
+            <span class="date">Latest</span>
+            <h3>What to check before buying a used phone</h3>
+            <p>A short checklist so you never get burned on a "like new" listing again.</p>
+          </div>
+        </div>
+        <div class="post-card reveal">
+          <div class="post-thumb p2">02</div>
+          <div class="post-body">
+            <span class="date">Coming soon</span>
+            <h3>New vs. certified pre-owned — which one actually saves you money</h3>
+            <p>Breaking down the real math behind both options.</p>
+          </div>
+        </div>
+        <div class="post-card reveal">
+          <div class="post-thumb p3">03</div>
+          <div class="post-body">
+            <span class="date">Coming soon</span>
+            <h3>Getting the most life out of your phone's battery</h3>
+            <p>Small habits that add real years to your device.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="soon">
+    <div class="wrap">
+      <div class="soon reveal">
+        <div>
+          <span class="soon-badge">COMING SOON</span>
+          <h3>The full SweetTalk shop is on its way</h3>
+          <p>Soon you'll be able to browse and buy phones directly, plus check out picks from SweetTalk's affiliate partners — all in one place.</p>
+        </div>
+        <div class="soon-list">
+          <div class="soon-item"><span class="ico">1</span> In-site checkout for phones</div>
+          <div class="soon-item"><span class="ico">2</span> Affiliate picks & partner deals</div>
+          <div class="soon-item"><span class="ico">3</span> New SweetTalk ventures, added here</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="eyebrow">About</div>
+        <h2 style="font-size:2rem;font-weight:700;margin-top:14px;">One founder, one growing lineup of businesses</h2>
+      </div>
+      <div class="about-card reveal">
+        <div class="initials">ST</div>
+        <p>SweetTalkMobile started as a straightforward idea: sell good phones at fair prices, and be honest about what you're getting.</p>
+        <p>This site is also home base for whatever comes next — every new SweetTalk venture will show up here first, alongside the write-ups and the shop.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>SweetTalkMobile</h4>
+        <p style="max-width:320px;">Good phones, straight talk, and a growing lineup of businesses — all in one place.</p>
+        <a href="mailto:tanko6799@gmail.com" class="foot-cta">Say Hello</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="#shop">Devices</a>
+        <a href="#writeups">Write-ups</a>
+        <a href="#soon">Coming Soon</a>
+        <a href="#about">About</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:tanko6799@gmail.com">tanko6799@gmail.com</a>
+        <a href="tel:+2348130994056">0813 099 4056</a>
+        <a href="https://facebook.com/samuelgaintotanko" target="_blank" rel="noopener">Facebook: Samuel Gainto Tanko</a>
+        <a href="https://instagram.com/bigflow1300" target="_blank" rel="noopener">Instagram: @bigflow1300</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> SweetTalkMobile. All rights reserved.</span>
+      <span>Built with care.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Ticker content
+  const items = [
+    "New stock just landed 📱",
+    "Certified pre-owned, inspected & graded",
+    "Accessories restocked",
+    "Fair prices, straight talk",
+    "Shop launching soon 🛍️",
+  ];
+  const track = document.getElementById('tickerTrack');
+  const buildBubble = (text) => {
+    const el = document.createElement('span');
+    el.className = 'bubble';
+    el.innerHTML = `<span class="bars"><span></span><span></span><span></span><span></span></span>${text}`;
+    return el;
+  };
+  // duplicate list twice for seamless marquee loop
+  [...items, ...items].forEach(t => track.appendChild(buildBubble(t)));
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    },{threshold:0.15});
+    revealEls.forEach(el=>io.observe(el));
+  } else {
+    revealEls.forEach(el=>el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>
